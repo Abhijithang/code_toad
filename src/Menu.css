@@ -1,0 +1,42 @@
+.navi {
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.navi-btn {
+
+  padding: 0;
+  height: 35px;
+  /* margin: 5px; */
+  /* width: ; */
+}
+
+.navi:hover {
+  color: #255734;
+  background: orange;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px orange , 0 0 40px orange, 0 0 80px orange;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  background: url(./pond.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-x: hidden;
+  box-shadow: 0 0 10px 10px black;
+}

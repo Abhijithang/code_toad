@@ -1,0 +1,19 @@
+.remove-icon {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+}
+
+.toastCustom {
+  color: #255734;
+  background: #00d0ff;
+  box-shadow: 0 0 10px #00d0ff , 0 0 40px #00d0ff, 0 0 80px #00d0ff ;
+}
+
+.even-cart {
+  transform: translate(calc(55px - 100%), 40px) !important;
+}
+
+.odd-cart {
+  transform: translate(calc(55px - 100%), 40px) !important;
+}
