@@ -15,7 +15,7 @@ class About extends React.Component {
             <h2>Code </h2>
 
               A platform for people to begin their very firstcoding journey!<br />
-              
+
           </Col>
 
         </Row>
