@@ -43,20 +43,13 @@ class Menu extends React.Component {
   }
 
   grabName=(name)=>{
-
         this.props.functionCallFromParent(name);
   }
 
   render() {
     const menuOptions = [
       {name:'home', path: ''},
-      {name:'racquets', path: ''},
-      {name:'shuttlecocks', path: ''},
-      {name:'string', path: ''},
-      {name:'footwear', path: ''},
-      {name:'bags', path: ''},
-      {name:'accessories', path: ''},
-      {name:'service', path: ''},
+      {name:'catalog', path: ''},
       {name:'contact', path: ''},
       {name:'about', path: ''},
     ]

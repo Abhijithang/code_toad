@@ -14,6 +14,13 @@ export const deleteOrder = (order) => {
   }
 }
 
+export const buyCourse = (order) => {
+  return {
+    type: actions.BUY_COURSE,
+    order
+  }
+}
+
 export const updateContact = (buyer) => {
   return {
     type: actions.UPDATE_CONTACT,

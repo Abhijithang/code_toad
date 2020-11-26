@@ -3,7 +3,7 @@ import {Container, Row, Col } from 'react-bootstrap';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {CSSTransition, TransitionGroup, } from 'react-transition-group';
 
-import Cart from './Cart'
+
 import Home from './Home'
 import Products from './Products'
 import Contact from './Contact'
@@ -56,18 +56,13 @@ class Main extends React.Component {
       <>
         <div style={{paddingTop:'150px', width:'100%', flex: "1 0 auto"}}>
           <Container>
-            <span className="sticky-cart">
-              <Cart />
-            </span>
+
             <Route render={({location})=>(
               <TransitionGroup>
                 <CSSTransition key={location.key} timeout={300} classNames="fade">
                   <Switch location={location}>
                     <Route exact path="/home" component={Home}/>
-                    <Route exact path="/racquets" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
-                    <Route exact path="/footwear" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
-                    <Route exact path="/bags" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
-                    <Route exact path="/service" render={(props) => <Service {...props} productList={this.props.products.string} />}></Route>
+                    <Route exact path="/catalog" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
                     <Route exact path="/test" component={InventoryTable}></Route>

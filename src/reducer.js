@@ -13,7 +13,15 @@ const initState = {
   admin: {
     account:"test",
     password:"test"
-  }
+  },
+  role:"instructor",
+  course:[
+    {
+      "id": "0",
+      "name": "CSMS 420",
+      "price": "$10.00",
+    }
+  ]
 }
 
 export default function reducer(state=initState, action) {
@@ -30,8 +38,24 @@ export default function reducer(state=initState, action) {
 
       case actions.REMOVE_FROM_CART:
         console.log(action);
-        let deletedOrder = action.order
-        draft.order= state.order.filter(order=>order.id !== deletedOrder.id || order.color !== deletedOrder.color ||  order.size !== deletedOrder.size)
+        let deletedOrder = []
+
+        deletedOrder = deletedOrder.concat(action.order)
+        console.log(deletedOrder);
+        deletedOrder.map(dorder=> {return draft.order= draft.order.filter(order=>order.id !== dorder.id)})
+        // draft.order= state.order.filter(order=>order.id !== deletedOrder.id || order.color !== deletedOrder.color ||  order.size !== deletedOrder.size)
+        break
+
+      case actions.BUY_COURSE:
+        console.log(action);
+        let order = action.order
+        let enrolled_list = []
+        draft.course.map(course=>{ return enrolled_list.push(course.id)})
+        console.log(enrolled_list);
+        order = order.filter(({id})=>!enrolled_list.includes(id))
+        console.log(order);
+        draft.course = draft.course.concat(order)
+        draft.order = []
         break
 
       case actions.UPDATE_CONTACT:

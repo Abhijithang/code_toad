@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
 import NumberInput from './components/NumberInput'
 import * as actions from './actionLookup'
-import {deleteOrder, updateContact} from './action'
+import {deleteOrder, updateContact, buyCourse} from './action'
 import './Cart.css'
 
 const cellRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -48,8 +48,11 @@ class Cart extends React.Component {
     this.submitContact = this.submitContact.bind(this)
     this.generateEmail = this.generateEmail.bind(this)
     this.calculatePrice = this.calculatePrice.bind(this)
+    this.buyCourse = this.buyCourse.bind(this)
 
   }
+
+
 
   generateEmail(values){
     var subject = "order information - " + new Date().toLocaleString("en-US", {timeZone: "America/New_York"})
@@ -93,6 +96,11 @@ class Cart extends React.Component {
     this.forceUpdate()
   }
 
+  buyCourse(order){
+    console.log(order);
+    this.props.buyCourse(order)
+  }
+
   toggleDisplay(target){
     console.log(target);
     this.setState(
@@ -108,7 +116,7 @@ class Cart extends React.Component {
   calculatePrice(){
     var total = 0
     console.log(this.props);
-    this.props.order.map(order=>{ return total += parseFloat(order.price.slice(1), 10) * parseFloat(order.amount, 10)})
+    this.props.order.map(o=>{ return total += parseFloat(o.price.slice(1), 10)})
     return total.toFixed(2)
   }
 
@@ -140,8 +148,8 @@ class Cart extends React.Component {
       borderColor:"#3f3e4f"
     }
     console.log(this.props, this.state);
-    const orderItems = this.props.order.length != 0? this.props.order.map(order=> <div key={order.id+order.color+order.size} style={{display: 'inline-flex', width:'100%', marginBottom:'3px'}}>
-      <Dropdown.Item style={{fontSize:"14px"}} disabled><div style={{fontWeight:"bold"}}>{order.name}</div>{order.color} - {order.size} x {order.amount}</Dropdown.Item>
+    const orderItems = this.props.order.length != 0? this.props.order.map(order=> <div key={order.id} style={{display: 'inline-flex', width:'100%', marginBottom:'3px'}}>
+      <Dropdown.Item style={{fontSize:"14px"}} disabled><div style={{fontWeight:"bold"}}>{order.name}</div></Dropdown.Item>
       <Button size='sm' variant='danger' style={removeIconStyle} onClick={()=>this.removeFromCart(order)}>{removeIcon}</Button>
     </div> ) : <Dropdown.Item disabled>Empty Cart</Dropdown.Item>
 
@@ -160,7 +168,7 @@ class Cart extends React.Component {
               {orderItems}
               <Dropdown.Divider />
               <Dropdown.Item disabled>Total: {this.props.order.length===0? <span>N/A</span> : <span style={{textDecoration:"line-through", color:"red", fontWeight:"bold", marginRight:"15px"}}>{this.calculatePrice()}</span>}</Dropdown.Item>
-              <Button disabled={this.props.order.length===0} onClick={()=>this.toggleDisplay("showCheckOut")} style={{margin:'10px', float:'right' , alignSelf: 'center'}}>Check Out!</Button>
+              <Button disabled={this.props.order.length===0} onClick={()=>this.buyCourse(this.props.order)} style={{margin:'10px', float:'right' , alignSelf: 'center'}}>Check Out!</Button>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -280,6 +288,9 @@ const mapDispatchToProps = (dispatch) => {
     removeFromCart: (order) => {
       console.log("delete")
       dispatch(deleteOrder(order))},
+    buyCourse: (order) => {
+      console.log("checkout")
+      dispatch(buyCourse(order))},
     updateContact: (buyer) => {
       console.log("update buyer contact")
       dispatch(updateContact(buyer))}

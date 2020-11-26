@@ -15,20 +15,8 @@ class ItemCard extends React.Component {
       order:{
         id: this.props.item.id,
         name: this.props.item.name,
-        color: this.props.item.spec[0].color,
-        price: this.props.item.spec[0].price,
-        size: this.props.item.spec[0].size[0],
-        amount: ""
+        price: this.props.item.price
       },
-      showModal:false,
-      errorMessage: {
-        id: false,
-        name: false,
-        color: false,
-        size:false,
-        amount:false
-      },
-      validOrder:false,
       touched:false
     }
 
@@ -39,7 +27,7 @@ class ItemCard extends React.Component {
 
     this.props.order.length == 0 ? console.log("no order"): console.log("$$");
 
-    this.setOrder = this.setOrder.bind(this)
+
     this.resetOrder = this.resetOrder.bind(this)
     this.showImg = this.showImg.bind(this)
     this.closeImg = this.closeImg.bind(this)
@@ -78,7 +66,6 @@ class ItemCard extends React.Component {
   }
 
   addToCart(id) {
-
     if (this.state.validOrder) {
       console.log(id)
       setTimeout(()=>{
@@ -87,33 +74,17 @@ class ItemCard extends React.Component {
 
     } else {
       console.log(this.state.order)
-
     }
+    console.log(id)
+    setTimeout(()=>{
+      this.props.addToCart(this.state.order)
+    },0)
+
     this.formTouched()
   }
 
   validateOrder(){
-    console.log("validating");
-    let invalid = 0
-    Object.keys(this.state.order).map(key => {
-      if (this.state.order[key] == "") {
-        this.state.errorMessage[key] = true
-        invalid ++
-      } else {
-        this.state.errorMessage[key] = false
-      }
-    })
-    let validOrder
-    console.log(this.state.errorMessage);
-    invalid == 0 ? validOrder = true :validOrder = false
-    console.log(validOrder);
-    this.setState(
-      prevState=> {
-        return{validOrder:validOrder}
-      }, ()=>{
-        console.log(this.state.validOrder);
-      }
-    )
+
   }
 
   showImg(){
@@ -138,43 +109,13 @@ class ItemCard extends React.Component {
     )
   }
 
-  setOrder(e){
-    e.persist();
-    console.log(e.target.id);
-    this.setState(
-      prevState => {
-        let order = Object.assign({}, prevState.order);
-        console.log(order[e.target.id]);
-        if(order.color && e.target.id === "color") {
-          
-
-          console.log(order);
-          order[e.target.id] = e.target.value
-          order.price = this.props.item.spec.find(spec => {return spec.color === e.target.value}).price
-          return{ order }
-        } else {
-          order[e.target.id] = e.target.value
-          return{ order }
-        }
-      }
-      ,
-      ()=>{
-        this.validateOrder()
-        console.log(this.state.order,this.props.order);
-      }
-    )
-  }
-
   resetOrder(){
     console.log("reset");
     this.setState(
       prevState => {
         let order = Object.assign({}, prevState.order);
         Object.keys(order).filter(key => key != "id" && key!= "name").map(key => order[key]="")
-        order.color =  this.props.item.spec[0].color
-        order.price = this.props.item.spec[0].price
-        order.size = this.props.item.spec[0].size[0]
-        console.log(order, this.props.item.spec[0].color);
+
         return { order:order, validOrder:false }
       },
       ()=>{
@@ -187,28 +128,10 @@ class ItemCard extends React.Component {
 
     console.log(this.props, this.state);
 
-    const colorOptions = this.props.item.spec[0] ? this.props.item.spec.map(item =>
-
-      <option key={item.color} value={item.color}>{item.color}</option>
-    ):<option>n/a</option>
-    console.log(colorOptions);
-
-    const priceTag = this.props.item.spec.find(spec => {return spec.color === this.state.order.color})?
-    <span style={{textDecoration:"line-through", color:"red", fontWeight:"bold", marginRight:"15px"}}>{this.props.item.spec.find(spec => {return spec.color === this.state.order.color}).price}</span> :
+    const priceTag = this.props.item.price?
+    <span style={{color:"red", fontWeight:"bold", marginRight:"15px"}}>{this.props.item.price}</span> :
     <span style={{marginRight:"15px"}}>N/A</span>
     console.log(priceTag);
-
-    const sizeOptions =this.props.item.spec.find(spec => {return spec.color === this.state.order.color})?
-    this.props.item.spec.find(spec => {return spec.color === this.state.order.color}).size.map(size =>
-      <option key= {size} value={size}>{size}</option>
-    ) : <option value="">n/a</option>
-    console.log(sizeOptions);
-
-    const amountOptions = Array.from(Array(20), (_, i) => i+1).map(
-      value=> <option key= {value} value={value}>{value}</option>
-    )
-
-    const errorText = Object.keys(this.state.errorMessage).map(key=>this.state.errorMessage[key] == true ? <span>{key} </span> : <span></span>)
 
     const zoomIcon = <FontAwesome
       className="super-crazy-colors"
@@ -265,65 +188,16 @@ class ItemCard extends React.Component {
                         <Form inline style={{float:"left"}}>
                           <Form.Group>
                             <Form.Label style={this.labelWidth} htmlFor="inlineFormCustomSelectPref">
-                              MAP:
+                              Enrollment Fee:
                             </Form.Label>
                             <span>{priceTag}</span>
 
                           </Form.Group>
-                          <Form.Group>
-                            <Form.Label style={this.labelWidth} htmlFor="inlineFormCustomSelectPref">
-                              Color
-                            </Form.Label>
-                            <Form.Control size="sm" as="select"
-                            id="color"
-                            className="ml-2 mr-4"
-                            value={this.state.order.color}
-                            onChange={this.setOrder} >
-
-                              {colorOptions}
-                            </Form.Control>
-                          </Form.Group>
-
-                          <Form.Group>
-                            <Form.Label style={this.labelWidth} htmlFor="inlineFormCustomSelectPref">
-                              Size
-                            </Form.Label>
-                            <Form.Control size="sm" as="select"
-                            id="size"
-                            className="ml-2 mr-4"
-                            value={this.state.order.size}
-                            onChange={this.setOrder}>
-
-                              {sizeOptions}
-                            </Form.Control>
-                          </Form.Group>
-
-
-
-
-                          <Form.Group>
-                            <Form.Label style={this.labelWidth} htmlFor="inlineFormCustomSelectPref">
-                              Amount
-                            </Form.Label>
-                            <Form.Control size="sm" as="select"
-                            id="amount"
-                            custom
-                            className="ml-2 mr-4"
-                            value={this.state.order.amount}
-                            onChange={this.setOrder}>
-                              <option key="" value="">0</option>
-                              {amountOptions}
-
-                            </Form.Control>
-
-                          </Form.Group>
-
-
 
                         </Form>
                         <div style={{float:"right"}}>
-                          <Button size="sm" onClick={this.resetOrder} variant="warning">Reset</Button>
-                          <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}} disabled={!isValid}>Add to Cart</Button>
+                          
+                          <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}} >Add to Cart</Button>
                         </div>
 
 
