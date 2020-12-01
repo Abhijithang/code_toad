@@ -66,18 +66,9 @@ class ItemCard extends React.Component {
   }
 
   addToCart(id) {
-    if (this.state.validOrder) {
-      console.log(id)
-      setTimeout(()=>{
-        this.props.addToCart(this.state.order)
-      },0)
-
-    } else {
-      console.log(this.state.order)
-    }
     console.log(id)
     setTimeout(()=>{
-      this.props.addToCart(this.state.order)
+      this.props.addToCart(this.props.item)
     },0)
 
     this.formTouched()
@@ -140,7 +131,7 @@ class ItemCard extends React.Component {
       style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
     />
 
-    const carouselImgs = this.state.item.image.map(img=>
+    const carouselImgs = this.state.item.image? this.state.item.image.map(img=>
       <Carousel.Item key={img.path}>
         <img
           className="d-block w-100"
@@ -151,7 +142,16 @@ class ItemCard extends React.Component {
 
         </Carousel.Caption>
       </Carousel.Item>
-    )
+    ) : <Carousel.Item key="../toad.png">
+      <img
+        className="d-block w-100"
+        src={require("../toad.png")}
+        alt="IMG"
+      />
+      <Carousel.Caption>
+
+      </Carousel.Caption>
+    </Carousel.Item>
 
     const isValid = this.state.validOrder
 
@@ -165,7 +165,7 @@ class ItemCard extends React.Component {
             <Card.Body >
               <Row>
 
-                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={require(`${this.state.item.image[0].path}`)} />
+                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={this.state.item.image? require(`${this.state.item.image[0].path}`): require("../toad.png")} />
                 <Modal centered show={this.state.showModal} onHide={()=>this.closeImg()} >
 
                   <Modal.Body style={{backgroundColor:"lightslategrey"}}>
@@ -196,7 +196,7 @@ class ItemCard extends React.Component {
 
                         </Form>
                         <div style={{float:"right"}}>
-                          
+
                           <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}} >Add to Cart</Button>
                         </div>
 

@@ -36,7 +36,7 @@ class Home extends React.Component {
     const course = this.props.course
     console.log(this.props);
     const courseList = course? course.map(c=>
-      <Col key={c.id} style={{marginBottom:'30px'}} sm={12}><EnrolledCourse data={this.props.products.catalog.find(enrolled => enrolled.id === c.id)}/></Col>
+      <Col key={c.id} style={{marginBottom:'30px'}} sm={12}><EnrolledCourse data={c}/></Col>
     ) : null
     return(
       <div>

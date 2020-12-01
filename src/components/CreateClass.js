@@ -9,7 +9,7 @@ import NumberInput from './NumberInput'
 import { connect } from 'react-redux'
 import { produce } from 'immer'
 import * as actions from '../actionLookup'
-import {updateCart} from '../action'
+import {createCourse} from '../action'
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -25,6 +25,7 @@ class CreateClass extends React.Component {
     super(props)
     this.state = {
       newcourse:{
+        id: null,
         name: "",
         description: "",
         instructor: "",
@@ -33,7 +34,7 @@ class CreateClass extends React.Component {
 
 
     }
-    this.createClass = this.createClass.bind(this)
+    this.createCourse = this.createCourse.bind(this)
     this.checkNewClass = this.checkNewClass.bind(this)
   }
 
@@ -53,7 +54,8 @@ class CreateClass extends React.Component {
     return exsist
   }
 
-  createClass(values) {
+  createCourse(values) {
+    values.id = this.props.catalog.length.toString()
     console.log("creating a new class");
     console.log(values);
     console.log(this.checkNewClass(values));
@@ -61,6 +63,7 @@ class CreateClass extends React.Component {
       console.log("class name already taken");
     } else {
       console.log("updating catalog");
+      this.props.createCourse(values)
     }
     // this.props.toggleDisplay("showCreateForm")
 
@@ -89,7 +92,7 @@ class CreateClass extends React.Component {
             validationSchema={schema}
             onSubmit={(values, { validate }) => {
                 console.log(values);
-                this.createClass(values)
+                this.createCourse(values)
 
             }}
             initialValues={this.state.newcourse}
@@ -173,9 +176,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (order) => {
-      console.log("submit")
-      dispatch(updateCart(order))}
+    createCourse: (course) => {
+      console.log("course")
+      dispatch(createCourse(course))}
   }
 }
 

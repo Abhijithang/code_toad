@@ -21,6 +21,13 @@ export const buyCourse = (order) => {
   }
 }
 
+export const createCourse = (course) => {
+  return {
+    type: actions.CREATE_COURSE,
+    course
+  }
+}
+
 export const updateContact = (buyer) => {
   return {
     type: actions.UPDATE_CONTACT,

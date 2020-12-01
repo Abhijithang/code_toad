@@ -20,7 +20,7 @@ class ItemCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: this.props.data.id
+       showModal:false
     }
 
     this.labelWidth = {
@@ -73,18 +73,6 @@ class ItemCard extends React.Component {
       style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
     />
 
-    const carouselImgs = this.props.data.image.map(img=>
-      <Carousel.Item key={img.path}>
-        <img
-          className="d-block w-100"
-          src={require(`${img.path}`)}
-          alt="IMG"
-        />
-        <Carousel.Caption>
-
-        </Carousel.Caption>
-      </Carousel.Item>
-    )
 
     const isValid = this.state.validOrder
 
@@ -102,16 +90,7 @@ class ItemCard extends React.Component {
             <Card.Body >
               <Row>
 
-                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={require(`${this.props.data.image[0].path}`)} />
-                <Modal centered show={this.state.showModal} onHide={()=>this.closeImg()} >
 
-                  <Modal.Body style={{backgroundColor:"lightslategrey"}}>
-                    <Carousel fade interval="25000" >
-                      {carouselImgs}
-                    </Carousel>
-                  </Modal.Body>
-
-                </Modal>
                 <Col className="cardContent">
                   <Card.Title >{this.props.data.name}</Card.Title>
                   <Card.Text className="cardContent" style={{height:"100%"}}>

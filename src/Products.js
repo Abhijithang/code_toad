@@ -18,19 +18,37 @@ class Products extends React.Component {
         contact_phone: null,
         contact_email: null
       },
-      productList: this.props.productList
     }
+    this.initCatalog = this.initCatalog.bind(this)
+
+  }
+
+  initCatalog(){
+    var courseCatalog
+    if (this.props.products.catalog.length != 0) {
+      if (this.props.role === "student") {
+        var enrolled_list = []
+        this.props.course.map(c=> { return enrolled_list+=c.id})
+        courseCatalog = this.props.products.catalog.filter(({id})=> !enrolled_list.includes(id))
+      } else {
+        courseCatalog = this.props.products.catalog
+      }
+    } else {
+      courseCatalog = [{
+
+      }]
+    }
+    console.log("init course catalog", courseCatalog);
+    return courseCatalog
   }
 
   render() {
     console.log(this.props);
-    var enrolled_list = []
-    this.props.course.map(c=> { return enrolled_list+=c.id})
-    var availCourses = this.state.productList.filter(({id})=> !enrolled_list.includes(id))
-    console.log(availCourses);
-    const productItems = availCourses? availCourses.map(item=>
+
+    
+    const courseCatalog = this.initCatalog().map(item=>
       <Col key={item.id} style={{marginBottom:'30px'}} sm={12}><ItemCard key={item.id} item={item}/></Col>
-    ) : null
+    )
     return(
       <div>
         <h3 style={{textTransform: 'capitalize'}}>{this.props.title}</h3>
@@ -38,7 +56,7 @@ class Products extends React.Component {
           <Cart />
         </span>
         <Row>
-          {productItems}
+          {courseCatalog}
         </Row>
       </div>
     )
