@@ -9,7 +9,7 @@ class About extends React.Component {
   render(){
     return(
       <div >
-        <Row style={{textAlign:"center"}}><Col><Image style={{width:"500px", height:"auto"}} src={require("./toad.png")} roundedCircle/></Col></Row>
+        <Row style={{textAlign:"center"}}><Col><Image style={{width:"500px", height:"auto"}} src={require("./image/toad.png")} roundedCircle/></Col></Row>
         <Row style={{textAlign:"center", marginTop:"20px"}}>
           <Col>
             <h2>Code </h2>

@@ -142,10 +142,10 @@ class ItemCard extends React.Component {
 
         </Carousel.Caption>
       </Carousel.Item>
-    ) : <Carousel.Item key="../toad.png">
+    ) : <Carousel.Item key="../image/toad.png">
       <img
         className="d-block w-100"
-        src={require("../toad.png")}
+        src={require("../image/toad.png")}
         alt="IMG"
       />
       <Carousel.Caption>
@@ -165,7 +165,7 @@ class ItemCard extends React.Component {
             <Card.Body >
               <Row>
 
-                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={this.state.item.image? require(`${this.state.item.image[0].path}`): require("../toad.png")} />
+                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={this.state.item.image? require(`${this.state.item.image[0].path}`): require("../image/toad.png")} />
                 <Modal centered show={this.state.showModal} onHide={()=>this.closeImg()} >
 
                   <Modal.Body style={{backgroundColor:"lightslategrey"}}>

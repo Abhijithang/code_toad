@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* background-color: blue; */
   /* background-image: url(./badminton_bw.jpg); */
-  background: url(./pond.jpg) no-repeat center center fixed;
+  background: url(./image/pond.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

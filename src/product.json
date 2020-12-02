@@ -8,7 +8,7 @@
       "price": "$10.00",
       "image": [
         {
-          "path":"./productImage/racket/ARC11MR3UG4.jpeg"
+          "path":"./toad.png"
         }
       ]
     },
@@ -20,7 +20,7 @@
       "price": "$20.00",
       "image": [
         {
-          "path":"./productImage/racket/ARC11MR3UG4.jpeg"
+          "path":"./toad.png"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "price": "$30.00",
       "image": [
         {
-          "path":"./productImage/racket/ARC11MR3UG4.jpeg"
+          "path":"./toad.png"
         }
       ]
     }

@@ -9,8 +9,7 @@ import Products from './Products'
 import Contact from './Contact'
 import About from './About'
 import Footer from './Footer'
-import Service from './Service'
-import InventoryTable from './InventoryTable'
+
 
 import './Main.css'
 
@@ -65,7 +64,6 @@ class Main extends React.Component {
                     <Route exact path="/catalog" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
-                    <Route exact path="/test" component={InventoryTable}></Route>
                     <Redirect from="*" to={"/home"} />
                   </Switch>
                 </CSSTransition>
