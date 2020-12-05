@@ -3,13 +3,10 @@ import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button,
 import FontAwesome from 'react-fontawesome'
 import FileUploader from './FileUploader'
 import './ItemCard.css'
-import {Formik, Field} from 'formik'
-import * as yup from 'yup'
-import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
-import { produce } from 'immer'
-import * as actions from '../../actionLookup'
 import {updateCart} from '../../action'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Course from './Course';
 
 
 
@@ -61,6 +58,10 @@ class ItemCard extends React.Component {
     )
   }
 
+  handleEnrolledCourseClick = () => {
+    console.log("Bro");
+  }
+
   render() {
 
     console.log(this.props, this.state);
@@ -94,10 +95,11 @@ class ItemCard extends React.Component {
                   <Card.Title >{this.props.data.name}</Card.Title>
                   <Card.Text className="cardContent" style={{height:"100%"}}>
                     <span style={{height:"100%"}}>{this.props.data.description.repeat(1)}</span>
-
-
                   </Card.Text>
                   <FileUploader/>
+                  <Button className="course-button">
+                    <Link to="/course" style={{color: "white"}} onClick={this.handleEnrolledCourseClick}>Enter Course</Link>
+                  </Button>
                 </Col>
               </Row>
             </Card.Body>
