@@ -225,7 +225,7 @@ class ItemCard extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log("loading item");
-  
+
   return {
     order: state.order,
     role: state.role
@@ -240,8 +240,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     crudOperation: (order) => {
       console.log("submit")
+      console.log("crudOperation");
       dispatch(updateCart(order))
-    },
+    }
 
   }
 }
