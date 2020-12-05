@@ -225,7 +225,7 @@ class ItemCard extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log("loading item");
-
+  console.log("hi");
   return {
     order: state.order,
     role: state.role
