@@ -97,9 +97,9 @@ class ItemCard extends React.Component {
                     <span style={{height:"100%"}}>{this.props.data.description.repeat(1)}</span>
                   </Card.Text>
                   <FileUploader/>
-                  <div className="CourseButton">
-                    <Link to="/course" onClick={this.handleEnrolledCourseClick}>Enter Course</Link>
-                  </div>
+                  <Button className="course-button">
+                    <Link to="/course" style={{color: "white"}} onClick={this.handleEnrolledCourseClick}>Enter Course</Link>
+                  </Button>
                 </Col>
               </Row>
             </Card.Body>
