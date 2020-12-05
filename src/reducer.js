@@ -68,11 +68,31 @@ export default function reducer(state=initState, action) {
 
       case actions.CRUD_OPERATION:
         console.log(action);
+        switch (action.operation) {
+          case "delete":
+            console.log("delete " + action.target);
+            let deleted = []
+            deleted = deleted.concat(action.obj)
 
+            deleted.map(dcourse=> {return draft.products.catalog= draft.products.catalog.filter(c=>c.id !== dcourse.id)})
+            // draft.products.catalog = draft.products.catalog.filter(course=> course.id !==action.obj)
+            break;
+          case "update":
+            console.log("update " + action.target);
+            var foundIndex =  draft.products.catalog.findIndex(course => course.id == action.obj.id);
+            console.log(foundIndex)
+            draft.products.catalog[foundIndex] = action.obj
+
+            break
+          default:
+          console.log("no match");
+
+
+        }
         break
 
       case actions.UPDATE_CONTACT:
-        console.log(action,draft);
+        console.log(action.draft);
         draft.buyer = action.buyer
         break
 

@@ -36,7 +36,7 @@ export const updateContact = (buyer) => {
 }
 
 export const crudOperation = (obj, target, operation) => {
-  console.log(obj);
+  console.log(obj, target, operation);
   return {
     type: actions.CRUD_OPERATION,
     target: target,
