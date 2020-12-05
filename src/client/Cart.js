@@ -5,8 +5,8 @@ import {Formik, Field} from 'formik'
 import * as yup from 'yup'
 import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
-import * as actions from './actionLookup'
-import {deleteOrder, updateContact, buyCourse} from './action'
+import * as actions from '../actionLookup'
+import {deleteOrder, updateContact, buyCourse} from '../action'
 import './Cart.css'
 
 const cellRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/

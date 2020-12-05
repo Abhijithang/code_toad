@@ -4,8 +4,8 @@ import FontAwesome from 'react-fontawesome'
 import './ItemCard.css'
 import { connect } from 'react-redux'
 import { produce } from 'immer'
-import * as actions from '../actionLookup'
-import {updateCart} from '../action'
+import * as actions from '../../actionLookup'
+import {updateCart} from '../../action'
 
 class ItemCard extends React.Component {
   constructor(props) {

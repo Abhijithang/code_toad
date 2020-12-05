@@ -8,8 +8,8 @@ import * as yup from 'yup'
 import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
 import { produce } from 'immer'
-import * as actions from '../actionLookup'
-import {updateCart} from '../action'
+import * as actions from '../../actionLookup'
+import {updateCart} from '../../action'
 
 
 

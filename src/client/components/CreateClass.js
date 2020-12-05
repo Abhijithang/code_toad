@@ -7,8 +7,8 @@ import * as yup from 'yup'
 import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
 import { produce } from 'immer'
-import * as actions from '../actionLookup'
-import {createCourse} from '../action'
+import * as actions from '../../actionLookup'
+import {createCourse} from '../../action'
 
 const schema = yup.object({
   name: yup.string().required(),
