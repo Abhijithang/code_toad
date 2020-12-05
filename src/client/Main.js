@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import {Container, Row, Col } from 'react-bootstrap';
 import {Switch, Route, Redirect} from 'react-router-dom'
-import {CSSTransition, TransitionGroup, } from 'react-transition-group';
+import {CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
 import Home from './Home'
 import Products from './Products'
 import Contact from './Contact'
 import About from './About'
+import Course from './components/Course'
+import NotFoundPage from './NotFoundPage'
 import Footer from './Footer'
 
 
@@ -64,7 +66,9 @@ class Main extends React.Component {
                     <Route exact path="/catalog" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
-                    <Redirect from="*" to={"/home"} />
+                    <Route exact path="/course" component={Course}></Route>
+                    <Route exact path="/404" component={NotFoundPage}></Route>
+                    <Redirect to="/404"/>
                   </Switch>
                 </CSSTransition>
               </TransitionGroup>
