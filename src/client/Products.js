@@ -93,9 +93,10 @@ class Products extends React.Component {
       name="plus"
       style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
     />
-    const courseCatalog = this.initCatalog().map(item=>
+    const courseCatalog = this.props.products.catalog.length != 0? this.initCatalog().map(item=>
       <Col key={item.id} style={{marginBottom:'30px'}} sm={12}><ItemCard key={item.id} item={item}/></Col>
-    )
+    ) :
+    <h1>No Course is provided at this momoent</h1>
     return(
       <div>
         <h3 style={{textTransform: 'capitalize'}}>{this.props.title}</h3>

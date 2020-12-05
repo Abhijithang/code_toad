@@ -29,7 +29,7 @@ class ItemCard extends React.Component {
 
 
 
-
+    
     this.showImg = this.showImg.bind(this)
     this.closeImg = this.closeImg.bind(this)
 
