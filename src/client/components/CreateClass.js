@@ -70,7 +70,7 @@ class CreateClass extends React.Component {
 
 
   render() {
-
+    console.log("Will is back on React!");
 
     const modalStyle = {
       backgroundColor:"#3f3e4f",
