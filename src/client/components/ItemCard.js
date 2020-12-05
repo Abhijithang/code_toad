@@ -32,7 +32,6 @@ class ItemCard extends React.Component {
     this.showImg = this.showImg.bind(this)
     this.closeImg = this.closeImg.bind(this)
     this.addToCart = this.addToCart.bind(this)
-    this.validateOrder = this.validateOrder.bind(this)
     this.initOrderStatus = this.initOrderStatus.bind(this)
     this.formTouched = this.formTouched.bind(this)
 
@@ -74,9 +73,12 @@ class ItemCard extends React.Component {
     this.formTouched()
   }
 
-  validateOrder(){
-
+  crudOperation(id) {
+    console.log(id)
+    this.props.crudOperation(this.props.item)
   }
+
+
 
   showImg(){
     this.setState(
@@ -142,10 +144,10 @@ class ItemCard extends React.Component {
 
         </Carousel.Caption>
       </Carousel.Item>
-    ) : <Carousel.Item key="../image/toad.png">
+    ) : <Carousel.Item key="./toad.png">
       <img
         className="d-block w-100"
-        src={require("../image/toad.png")}
+        src={require("./toad.png")}
         alt="IMG"
       />
       <Carousel.Caption>
@@ -196,8 +198,15 @@ class ItemCard extends React.Component {
 
                         </Form>
                         <div style={{float:"right"}}>
+                          {
+                            this.props.role === "admin"?
+                            <div>
+                              <Button size='sm' variant='warning' onClick={()=> this.addToCart(this.state.item.id)}>Update</Button>
+                              <Button size='sm' variant='danger' onClick={()=> this.addToCart(this.state.item.id)} style={{marginLeft:"5px"}}>Delete</Button>
+                            </div> :
+                            <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}}>Add to Cart</Button>
+                          }
 
-                          <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}} >Add to Cart</Button>
                         </div>
 
 
@@ -216,9 +225,10 @@ class ItemCard extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log("loading item");
-
+  
   return {
-    order: state.order
+    order: state.order,
+    role: state.role
   }
 }
 
@@ -226,7 +236,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (order) => {
       console.log("submit")
-      dispatch(updateCart(order))}
+      dispatch(updateCart(order))
+    },
+    crudOperation: (order) => {
+      console.log("submit")
+      dispatch(updateCart(order))
+    },
+
   }
 }
 

@@ -14,7 +14,7 @@ const initState = {
     account:"test",
     password:"test"
   },
-  role:"instructor",
+  role:"admin",
   course:[
     {
       "id": "0",
@@ -64,6 +64,11 @@ export default function reducer(state=initState, action) {
         let newClass = action.course
         draft.course = draft.course.concat(newClass)
         draft.products.catalog = draft.products.catalog.concat(newClass)
+        break
+
+      case actions.CRUD_OPERATION:
+        console.log(action);
+
         break
 
       case actions.UPDATE_CONTACT:

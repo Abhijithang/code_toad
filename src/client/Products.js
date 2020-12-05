@@ -1,7 +1,9 @@
 import React from 'react'
 import ItemCard from './components/ItemCard'
 import Cart from './Cart'
-import {Row, Col} from 'react-bootstrap'
+import CreateClass from './components/CreateClass'
+import FontAwesome from 'react-fontawesome'
+import {Row, Col, Button, ButtonGroup} from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 class Products extends React.Component {
@@ -20,7 +22,21 @@ class Products extends React.Component {
       },
     }
     this.initCatalog = this.initCatalog.bind(this)
+    this.checkNewClass = this.checkNewClass.bind(this)
+    this.createCourse = this.createCourse.bind(this)
+    this.toggleDisplay = this.toggleDisplay.bind(this)
+  }
 
+  toggleDisplay(target){
+    console.log(target);
+    this.setState(
+      prevState=> {
+        console.log(prevState);
+        return {[target]:!prevState[target]}
+      }, ()=>{
+        console.log(this.state[target]);
+      }
+    )
   }
 
   initCatalog(){
@@ -42,22 +58,61 @@ class Products extends React.Component {
     return courseCatalog
   }
 
+  checkNewClass(values) {
+    console.log("check class name")
+    console.log(this.props);
+    var exsist = false
+    this.props.catalog.map(c => {
+      if (c.name == values.name) {
+        exsist = true
+      }
+    })
+    return exsist
+  }
+
+  createCourse(values) {
+    values.id = this.props.catalog.length.toString()
+    console.log("creating a new class");
+    console.log(values);
+    console.log(this.checkNewClass(values));
+    if (this.checkNewClass(values)) {
+      console.log("class name already taken");
+    } else {
+      console.log("updating catalog");
+      this.props.createCourse(values)
+    }
+    // this.props.toggleDisplay("showCreateForm")
+
+  }
+
   render() {
     console.log(this.props);
 
-    
+    const createClassIcon = <FontAwesome
+      className="super-crazy-colors"
+      name="plus"
+      style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+    />
     const courseCatalog = this.initCatalog().map(item=>
       <Col key={item.id} style={{marginBottom:'30px'}} sm={12}><ItemCard key={item.id} item={item}/></Col>
     )
     return(
       <div>
         <h3 style={{textTransform: 'capitalize'}}>{this.props.title}</h3>
-        <span className="sticky-cart">
-          <Cart />
-        </span>
+        {
+          this.props.role == "admin"?
+          <span className="sticky-cart">
+            <Button onClick={()=>this.toggleDisplay("showCreateForm")}>{createClassIcon}</Button>
+          </span> :
+          <span className="sticky-cart">
+            <Cart />
+          </span>
+        }
+
         <Row>
           {courseCatalog}
         </Row>
+        <CreateClass showCreateForm={this.state.showCreateForm} toggleDisplay={this.toggleDisplay}/>
       </div>
     )
   }
