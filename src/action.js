@@ -34,3 +34,13 @@ export const updateContact = (buyer) => {
     buyer
   }
 }
+
+export const crudOperation = (obj, target, operation) => {
+  console.log(obj);
+  return {
+    type: actions.CRUD_OPERATION,
+    target: target,
+    operation: operation,
+    obj
+  }
+}
