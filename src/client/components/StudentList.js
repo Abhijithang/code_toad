@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactBootStrap from "react-bootstrap"
+import './StudentList.css'
 
 class StudentList extends React.Component {
     constructor() {
@@ -26,6 +27,9 @@ class StudentList extends React.Component {
         }
         return(
             <div>
+                <div className="student-list-title">
+                    Student List
+                </div>
                 <ReactBootStrap.Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
