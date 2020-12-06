@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
-import FontAwesome from 'react-fontawesome'
 import EnrolledCourse from './components/EnrolledCourse'
 
 
