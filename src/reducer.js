@@ -3,11 +3,6 @@ import * as actions from './actionLookup'
 
 
 const initState = {
-  buyer:{
-    name:"",
-    email:"",
-    cell:""
-  },
   order:[],
   products:require('./client/product.json'),
   admin: {

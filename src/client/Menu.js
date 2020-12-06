@@ -2,11 +2,13 @@ import React from 'react'
 import {Button,  Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-transition-group'
+import {connect} from 'react-redux'
 
 import Home from './Home'
 import Contact from './Contact'
 import About from './About'
 import Cart from './Cart'
+import UserList from './UserList'
 
 import './Menu.css'
 
@@ -47,12 +49,15 @@ class Menu extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const menuOptions = [
       {name:'home', path: ''},
       {name:'catalog', path: ''},
       {name:'contact', path: ''},
       {name:'about', path: ''},
+
     ]
+
 
     const menuComponents = menuOptions.map(m =>
       <Nav.Item key={m.name} >
@@ -67,6 +72,7 @@ class Menu extends React.Component {
 
 
     return(
+
       <div className="sticky">
         <header style={{color:'white', margin:'0px', margin:'10px'}}>
           <img src={require('./image/toad.png')} width="32" height="32"/> <span className="animate__animated animate__bounce"><b>Code Toad - Your Best Friend of Learning Code!</b></span>
@@ -78,6 +84,13 @@ class Menu extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto" variant='pills' >
               {menuComponents}
+              <Nav.Item>
+
+                  <NavLink className='navi' to='/userlist' activeStyle={this.state.styleActive}>
+                    User Management
+                  </NavLink>
+
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -94,4 +107,12 @@ class Menu extends React.Component {
 
 
 
-export default Menu
+const mapStateToProps = (state) => {
+  return {
+    role: state.role
+  }
+}
+
+
+
+export default connect(mapStateToProps)(Menu)
