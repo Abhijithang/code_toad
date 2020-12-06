@@ -9,6 +9,12 @@ import Products from './Products'
 import Contact from './Contact'
 import About from './About'
 import Course from './components/Course'
+import Announcements from './components/Announcements'
+import Lectures from './components/Lectures'
+import Assignments from './components/Assignments'
+import Grades from './components/Grades'
+import Syllabus from './components/Syllabus'
+import StudentList from './components/StudentList'
 import NotFoundPage from './NotFoundPage'
 import Footer from './Footer'
 
@@ -22,7 +28,6 @@ class Main extends React.Component {
     super(props)
     this.state = {
       count: 3,
-
     }
 
     this.style = {
@@ -67,6 +72,12 @@ class Main extends React.Component {
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
                     <Route exact path="/course" component={Course}></Route>
+                    <Route exact path="/course/announcements" component={Announcements}></Route>
+                    <Route exact path="/course/lectures" component={Lectures}></Route>
+                    <Route exact path="/course/assignments" component={Assignments}></Route>
+                    <Route exact path="/course/grades" component={Grades}></Route>
+                    <Route exact path="/course/syllabus" component={Syllabus}></Route>
+                    <Route exact path="/course/student_list" component={StudentList}></Route>
                     <Route exact path="/404" component={NotFoundPage}></Route>
                     <Redirect to="/404"/>
                   </Switch>
@@ -74,9 +85,7 @@ class Main extends React.Component {
               </TransitionGroup>
             )}>
             </Route>
-
           </Container>
-
         </div>
       </>
 

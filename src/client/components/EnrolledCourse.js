@@ -58,10 +58,6 @@ class ItemCard extends React.Component {
     )
   }
 
-  handleEnrolledCourseClick = () => {
-    console.log("Bro");
-  }
-
   render() {
 
     console.log(this.props, this.state);
@@ -72,42 +68,31 @@ class ItemCard extends React.Component {
       size="lg"
       style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
     />
-
-
     const isValid = this.state.validOrder
-
-
     console.log(this.props);
+    const buttonStyle = {
+      color: "white",
+      textTransform: "capitalize"
+    };
     return(
-
       <div>
-
-
-
         <CardDeck>
-
           <Card className='card-body' bg='dark' text='white'>
             <Card.Body >
               <Row>
-
-
                 <Col className="cardContent">
                   <Card.Title >{this.props.data.name}</Card.Title>
                   <Card.Text className="cardContent" style={{height:"100%"}}>
                     <span style={{height:"100%"}}>{this.props.data.description.repeat(1)}</span>
                   </Card.Text>
-                  <FileUploader/>
                   <Button className="course-button">
-                    <Link to="/course" style={{color: "white"}} onClick={this.handleEnrolledCourseClick}>Enter Course</Link>
+                    <Link to="/course" style={buttonStyle}>Enter Course</Link>
                   </Button>
                 </Col>
               </Row>
             </Card.Body>
           </Card>
         </CardDeck>
-
-
-
       </div>
     )
   }
