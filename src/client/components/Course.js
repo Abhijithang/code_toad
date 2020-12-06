@@ -19,14 +19,17 @@ class Course extends React.Component {
             products,
             admin,
             role,
-            course
+            course,
+            match, 
+            location
         } = this.props;
         const buttonStyle = {
             color: "white",
             textTransform: "capitalize"
         };
         console.log("wow hello")
-        console.log({buyer, order, products, admin, role, course})
+        console.log({buyer, order, products, admin, role, course, match, location})
+
         const courseMenuOptions = ["announcements", "lectures", "assignments", "grades", "syllabus", "student list"];
         const courseMenu = courseMenuOptions.map(c =>
             <Col key={c} style={{marginBottom:'30px'}} sm={12}><Button className="course-button">
