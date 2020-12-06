@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 import {Container, Row, Col } from 'react-bootstrap';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux'
 
 
 import Home from './Home'
 import Products from './Products'
 import Contact from './Contact'
 import About from './About'
+import UserList from './UserList'
 import Course from './components/Course'
 import Announcements from './components/Announcements'
 import Lectures from './components/Lectures'
@@ -21,7 +23,6 @@ import Footer from './Footer'
 
 import './Main.css'
 
-import { connect } from 'react-redux'
 
 class Main extends React.Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class Main extends React.Component {
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
                     <Route exact path="/course" component={Course}></Route>
+                    <Route exact path="/userlist" component={UserList}></Route>
                     <Route exact path="/course/announcements" component={Announcements}></Route>
                     <Route exact path="/course/lectures" component={Lectures}></Route>
                     <Route exact path="/course/assignments" component={Assignments}></Route>
