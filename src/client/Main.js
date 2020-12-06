@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 import {Container, Row, Col } from 'react-bootstrap';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux'
 
 
 import Home from './Home'
 import Products from './Products'
 import Contact from './Contact'
 import About from './About'
+import UserList from './UserList'
 import Course from './components/Course'
 import Announcements from './components/Announcements'
 import Lectures from './components/Lectures'
@@ -21,7 +23,6 @@ import Footer from './Footer'
 
 import './Main.css'
 
-import { connect } from 'react-redux'
 
 class Main extends React.Component {
   constructor(props) {
@@ -67,15 +68,16 @@ class Main extends React.Component {
                     <Route exact path="/catalog" render={(props) => <Products {...props} productList={this.props.products[this.props.currentPage]} title={this.props.currentPage}/>}></Route>
                     <Route exact path="/contact" component={Contact}></Route>
                     <Route exact path="/about" component={About}></Route>
-                    <Route exact path="/course" component={Course}></Route>
-                    <Route exact path="/course/announcements" component={Announcements}></Route>
-                    <Route exact path="/course/lectures" component={Lectures}></Route>
-                    <Route exact path="/course/assignments" component={Assignments}></Route>
-                    <Route exact path="/course/grades" component={Grades}></Route>
-                    <Route exact path="/course/syllabus" component={Syllabus}></Route>
-                    <Route exact path="/course/student_list" component={StudentList}></Route>
+                    <Route exact path="/course/:courseId" component={Course}></Route>
+                    <Route exact path="/userlist" component={UserList}></Route>
+                    <Route exact path="/course/:courseId/announcements" component={Announcements}></Route>
+                    <Route exact path="/course/:courseId/lectures" component={Lectures}></Route>
+                    <Route exact path="/course/:courseId/assignments" component={Assignments}></Route>
+                    <Route exact path="/course/:courseId/grades" component={Grades}></Route>
+                    <Route exact path="/course/:courseId/syllabus" component={Syllabus}></Route>
+                    <Route exact path="/course/:courseId/student_list" component={StudentList}></Route>
                     <Route exact path="/404" component={NotFoundPage}></Route>
-                    <Redirect to="/404"/>
+                    // <Redirect to="/404"/>
                   </Switch>
                 </CSSTransition>
               </TransitionGroup>

@@ -2,10 +2,11 @@ import React from 'react'
 import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import './ItemCard.css'
+import CreateClass from './CreateClass'
 import { connect } from 'react-redux'
 import { produce } from 'immer'
 import * as actions from '../../actionLookup'
-import {updateCart} from '../../action'
+import {updateCart, crudOperation} from '../../action'
 
 class ItemCard extends React.Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class ItemCard extends React.Component {
         name: this.props.item.name,
         price: this.props.item.price
       },
-      touched:false
+      touched:false,
+      textAreaValue:"",
+      editing: false
     }
 
     this.labelWidth = {
@@ -29,12 +32,13 @@ class ItemCard extends React.Component {
 
 
     this.resetOrder = this.resetOrder.bind(this)
-    this.showImg = this.showImg.bind(this)
-    this.closeImg = this.closeImg.bind(this)
     this.addToCart = this.addToCart.bind(this)
     this.initOrderStatus = this.initOrderStatus.bind(this)
     this.formTouched = this.formTouched.bind(this)
-
+    this.crudOperation = this.crudOperation.bind(this)
+    this.toggleDisplay = this.toggleDisplay.bind(this)
+    this.handleDescription = this.handleDescription.bind(this)
+    this.updateCourse = this.updateCourse.bind(this)
   }
 
   componentDidMount(){
@@ -42,7 +46,22 @@ class ItemCard extends React.Component {
 
   }
 
+  handleDescription(event){
+    this.setState({ textAreaValue: event.target.value });
 
+  }
+
+  toggleDisplay(target){
+    console.log(target);
+    this.setState(
+      prevState=> {
+        console.log(prevState);
+        return {[target]:!prevState[target]}
+      }, ()=>{
+        console.log(this.state[target],this.state);
+      }
+    )
+  }
 
   initOrderStatus(){
     this.props.order.map(order=> {if (order.id == this.props.item.id) {
@@ -73,33 +92,22 @@ class ItemCard extends React.Component {
     this.formTouched()
   }
 
-  crudOperation(id) {
-    console.log(id)
-    this.props.crudOperation(this.props.item)
+  updateCourse(target, operation){
+    var item = {...this.state.item}
+    item.description = this.state.textAreaValue;
+    this.setState(()=>{
+      return{item:item}
+    }, ()=>{
+      this.toggleDisplay("editing")
+      this.props.crudOperation(item, target, operation)
+      console.log(this.state.item);
+    })
+
   }
 
-
-
-  showImg(){
-    this.setState(
-      prevState=> {
-        return{showModal:true}
-      }, ()=>{
-        console.log(this.state.showModal);
-      }
-    )
-  }
-
-
-
-  closeImg(){
-    this.setState(
-      prevState=> {
-        return{showModal:false}
-      }, ()=>{
-        console.log(this.state.showModal);
-      }
-    )
+  crudOperation(obj, target, operation) {
+    console.log(obj)
+    this.props.crudOperation(obj, target, operation)
   }
 
   resetOrder(){
@@ -167,8 +175,8 @@ class ItemCard extends React.Component {
             <Card.Body >
               <Row>
 
-                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.showImg()} className='product-image' src={this.state.item.image? require(`${this.state.item.image[0].path}`): require("../image/toad.png")} />
-                <Modal centered show={this.state.showModal} onHide={()=>this.closeImg()} >
+                <Image style={{ cursor: "zoom-in" }} onClick={()=>this.toggleDisplay('showModal')} className='product-image' src={this.state.item.image? require(`${this.state.item.image[0].path}`): require("../image/toad.png")} />
+                <Modal centered show={this.state.showModal} onHide={()=>this.toggleDisplay('showModal')} >
 
                   <Modal.Body style={{backgroundColor:"lightslategrey"}}>
                     <Carousel fade interval="25000" >
@@ -180,7 +188,15 @@ class ItemCard extends React.Component {
                 <Col className="cardContent">
                   <Card.Title >{this.state.item.name}</Card.Title>
                   <Card.Text className="cardContent" style={{height:"100%"}}>
-                    <span style={{height:"100%"}}>{this.state.item.description.repeat(1)}</span>
+                    {this.state.editing?
+                      <div>
+                        <Form.Control as="textarea" rows={3} value={this.state.textAreaValue}   onChange={this.handleDescription}/>
+                        <Button size='sm' variant='warning' style={{float:'right'}} onClick={()=> this.updateCourse("catalog","update")}>Update</Button>
+                      </div> :
+                      <span style={{marginBottom:"10px"}}>{this.state.item.description}</span>
+                    }
+
+
 
 
                   </Card.Text>
@@ -201,8 +217,9 @@ class ItemCard extends React.Component {
                           {
                             this.props.role === "admin"?
                             <div>
-                              <Button size='sm' variant='warning' onClick={()=> this.addToCart(this.state.item.id)}>Update</Button>
-                              <Button size='sm' variant='danger' onClick={()=> this.addToCart(this.state.item.id)} style={{marginLeft:"5px"}}>Delete</Button>
+
+                              <Button size='sm' variant='warning' onClick={()=>this.toggleDisplay("editing")}>Edit</Button>
+                              <Button size='sm' variant='danger' onClick={()=> this.crudOperation(this.state.item, "catalog", "delete")} style={{marginLeft:"5px"}}>Delete</Button>
                             </div> :
                             <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}}>Add to Cart</Button>
                           }
@@ -218,6 +235,7 @@ class ItemCard extends React.Component {
             </Card.Body>
           </Card>
         </CardDeck>
+
       </div>
     )
   }
@@ -225,7 +243,7 @@ class ItemCard extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log("loading item");
-  
+
   return {
     order: state.order,
     role: state.role
@@ -238,10 +256,11 @@ const mapDispatchToProps = (dispatch) => {
       console.log("submit")
       dispatch(updateCart(order))
     },
-    crudOperation: (order) => {
+    crudOperation: (order, target, operation) => {
       console.log("submit")
-      dispatch(updateCart(order))
-    },
+      console.log("crudOperation");
+      dispatch(crudOperation(order, target, operation))
+    }
 
   }
 }

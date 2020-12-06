@@ -28,12 +28,11 @@ class Course extends React.Component {
             textTransform: "capitalize"
         };
         console.log("wow hello")
-        console.log({buyer, order, products, admin, role, course, match, location})
-
-        const courseMenuOptions = ["announcements", "lectures", "assignments", "grades", "syllabus", "student list"];
+        console.log({buyer, order, products, admin, role, course, match,location})
+        const courseMenuOptions = ["announcements", "lectures", "assignments", "grades", "syllabus", "student_list"];
         const courseMenu = courseMenuOptions.map(c =>
             <Col key={c} style={{marginBottom:'30px'}} sm={12}><Button className="course-button">
-            <Link to={`/course/${c}`} style={buttonStyle}>{c}</Link>
+            <Link to={`${location.pathname}/${c}`} style={buttonStyle}>{c}</Link>
           </Button></Col>
         )
         return(

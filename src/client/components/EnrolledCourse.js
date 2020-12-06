@@ -72,7 +72,8 @@ class ItemCard extends React.Component {
     console.log(this.props);
     const buttonStyle = {
       color: "white",
-      textTransform: "capitalize"
+      textTransform: "capitalize",
+      width:"100%"
     };
     return(
       <div>
@@ -85,9 +86,9 @@ class ItemCard extends React.Component {
                   <Card.Text className="cardContent" style={{height:"100%"}}>
                     <span style={{height:"100%"}}>{this.props.data.description.repeat(1)}</span>
                   </Card.Text>
-                  <Button className="course-button">
-                    <Link to={`/course`} style={buttonStyle}>Enter Course</Link>
-                  </Button>
+                    <Link className="course-button" to={`/course/${this.props.data.id}`} >
+                      <Button style={buttonStyle}>Enter Course</Button>
+                    </Link>
                 </Col>
               </Row>
             </Card.Body>
