@@ -1,29 +1,51 @@
-import React from 'react'
-import {Image, Col, Row} from 'react-bootstrap'
-import UserTable from './components/UserTable'
+import React from 'react';
+import * as ReactBootStrap from "react-bootstrap"
+import EditableUserDirectory from './EditableUserDirectory.js';
+import NonEditableUserDirectory from './NonEditableUserDirectory.js';
+import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
 
+const stubUser = [
+    {id: "", username: "", firstName: "", lastName: "", email: "", userType: ""},     
+];
 class UserList extends React.Component {
-  constructor(){
-    super()
-  }
+    constructor() {
+        super();
+        this.state = {
+            userType: "admin",
+            // userType: "student",
+            userList: stubUser,
+        }
+    }
 
-  render(){
-    const iframe = '<iframe src="https://codesandbox.io/embed/awesome-roentgen-4wn32jky57?fontsize=14&hidenavigation=1&theme=dark" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="react-table inline editing" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>';
-    return(
-      <div >
-        <Row style={{textAlign:"center", marginTop:"20px"}}>
-          <Col>
-            <h2>User Management</h2>
-          </Col>
-        </Row>
+    componentDidMount() {
+        // Simple GET request using fetch
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        // Get List of users Enrolled in a Specific Course API Endpoint
+        const userListUrl = "https://codetoad613.herokuapp.com/v1/codetoad/user/all";
+        fetch(proxyUrl + userListUrl)
+            .then(response => response.json())
+            .then(data => this.setState({ userList: data }));
+    }
 
-        <Row>
-          
-        </Row>
-      </div>
-    )
-  }
+    render() {
+        const {
+            match,
+            location,
+        } = this.props;
+        const {
+            userType,
+            userList,
+        } = this.state;
+        console.log('userList', userList)
+        return(
+            <div>
+                <div style={{ textAlign: "center" }}>
+                    <h1>User List</h1>
+                </div>
+                {userType != "admin" ? <NonEditableUserDirectory userList={userList} /> : <EditableUserDirectory userList={userList}/>}
+            </div>
+        )
+    }
 }
 
-
-export default UserList
+export default UserList;
