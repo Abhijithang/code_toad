@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       isLoading: true,
       selectedMenu: window.location.pathname.substring(1),
-      userDirectory: null
+      userDirectory: ''
     }
 
     this.style = {
@@ -56,6 +56,9 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      userDirectory
+    } = this.state;
     console.log(this.state);
     return(
       <div style={this.style}>

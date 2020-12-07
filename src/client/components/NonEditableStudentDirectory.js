@@ -16,9 +16,10 @@ class NonEditableStudentDirectory extends React.Component {
         const renderStudent = (studentList, index) => {
             return (
                 <tr key={index}>
-                    <td>{studentList.name}</td>
+                    <td>{studentList.firstName}</td>
+                    <td>{studentList.lastName}</td>
+                    <td>{studentList.username}</td>
                     <td>{studentList.email}</td>
-                    <td>{studentList.phone}</td>
                 </tr>
             )
         }
@@ -27,9 +28,10 @@ class NonEditableStudentDirectory extends React.Component {
                 <ReactBootStrap.Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
                     </tr>
                 </thead>
                 <tbody>

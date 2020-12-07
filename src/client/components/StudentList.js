@@ -6,56 +6,26 @@ import NonEditableStudentDirectory from './NonEditableStudentDirectory.js';
 import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
 
 const stubStudent = [
-    {name: "William Ma", email: "wma5283@gmail.com", phone: "123-456-789"},          
-    {name: "William Ma", email: "wma5283@gmail.com", phone: "123-456-789"},          
-    {name: "William Ma", email: "wma5283@gmail.com", phone: "123-456-789"},          
-    {name: "William Ma", email: "wma5283@gmail.com", phone: "123-456-789"},          
+    {firstName: "", lastName: "", username: "", email: ""},     
 ];
 class StudentList extends React.Component {
     constructor() {
         super();
         this.state = {
             userType: "instructor",
-            //userType: "student",
+            // userType: "student",
             studentList: stubStudent,
-            userDirectory: '',
-            specificCourse: '',
         }
     }
 
     componentDidMount() {
-        const {
-            userDirectory,
-            specificCourse,
-        } = this.state;
         // Simple GET request using fetch
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-        const userDirectoryUrl = "https://codetoad613.herokuapp.com/v1/codetoad/user/all"; // get user directory for lookup
-        const specificCourseUrl = `https://codetoad613.herokuapp.com/v1/codetoad/course/details/${this.props.match.params.courseId}`; // get specific course information
-        fetch(proxyUrl + userDirectoryUrl)
+        // Get List of Students Enrolled in a Specific Course API Endpoint
+        const studentListUrl = `http://codetoad613.herokuapp.com//v1/codetoad/course/student/details/all/${this.props.match.params.courseId}`;
+        fetch(proxyUrl + studentListUrl)
             .then(response => response.json())
-            .then(data => this.setState({ userDirectory: data }));
-
-        fetch(proxyUrl + specificCourseUrl)
-            .then(response => response.json())
-            .then(data => this.setState({ specificCourse: data }));
-    }
-
-    // using the student id list in the course, we want to retrieve each student's information in the userDirectory
-    getListOfStudentInformation = (userDirectory, specificCourse) => {
-        const studentListOfId = null;
-        if (specificCourse != null || specificCourse != undefined) {
-            specificCourse.studentIdList;
-            console.log(studentListOfId)
-            const listOfStudentInformation = []; 
-            studentListOfId.forEach(studentId => {
-                if (userDirectory.contains(studentId)) {
-                    const index = userDirectory.getIndexOf(studentId)
-                    listOfStudentInformation.push(userDirectory.get(index));
-                }
-            });
-            this.setState({studentList : listOfStudentInformation});
-        }
+            .then(data => this.setState({ studentList: data }));
     }
 
     render() {
@@ -66,15 +36,8 @@ class StudentList extends React.Component {
         const {
             userType,
             studentList,
-            userDirectory,
-            specificCourse,
         } = this.state;
-
-        console.log({userDirectory, match, location, specificCourse});
-        if (userDirectory != null || userDirectory != undefined && specificCourse != null || specificCourse != undefined) {
-            this.getListOfStudentInformation(userDirectory, specificCourse);
-        }
-        
+        console.log('studentList', studentList)
         return(
             <div>
                 <div style={{ textAlign: "center" }}>
