@@ -35,22 +35,10 @@ class Assignment extends React.Component {
   }
 
   handleAnswer(event) {
-    console.log(event.target.value);
-    console.log(event.target.id);
     let index = event.target.id
     let answers = [...this.state.answers];
     answers[index] = event.target.value;
     this.setState({answers:answers})
-    // 4. Put it back int
-    console.log(index);
-    // var item = {...this.prop.item}
-    // item.description = this.state.textAreaValue;
-    // this.setState(()=>{
-    //   return{item:item}
-    // }, ()=>{
-    //
-    // })
-    // this.setState({ textAreaValue: event.target.value });
   }
 
 
