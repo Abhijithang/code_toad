@@ -16,7 +16,8 @@ class App extends React.Component {
 
     this.state = {
       isLoading: true,
-      selectedMenu: window.location.pathname.substring(1)
+      selectedMenu: window.location.pathname.substring(1),
+      courseDirectory: '',
     }
 
     this.style = {
@@ -28,21 +29,25 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // Simple GET request using fetch
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const courseDirectoryUrl = "https://codetoad613.herokuapp.com/v1/codetoad/course/details/all"; // get all course directory
+    fetch(proxyUrl + courseDirectoryUrl)
+        .then(response => response.json())
+        .then(data => this.setState({ courseDirectory: data }));
     setTimeout(()=>{
       this.setState({
         isLoading: false
       })
     }, 500)
-
-
   }
 
   menuSelected=(menu_name)=>{
-        this.setState({selectedMenu: menu_name},
-          ()=>{
-            console.log(this.state.selectedMenu);
-          }
-        )
+    this.setState({selectedMenu: menu_name},
+      ()=>{
+        console.log(this.state.selectedMenu);
+      }
+    )
   }
 
   render() {
