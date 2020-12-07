@@ -72,7 +72,7 @@ class UserModal extends Component {
         console.log('Reaching the modal')
         return (
             <div>
-                <Modal.Dialog centered show={this.state.showModal} onHide={this.handleClose} >
+                <Modal centered show={this.props.showModal} onHide={()=>this.props.toggleDisplay('showModal')} >
                     <Modal.Header closeButton style={modalStyle}>
                         <Modal.Title>Edit User</Modal.Title>
                     </Modal.Header>
@@ -89,7 +89,7 @@ class UserModal extends Component {
                     <Modal.Footer style={modalStyle}>
                         <Button variant="primary" onClick={() => {this.handleSave()}}>Save changes</Button>
                     </Modal.Footer>
-                </Modal.Dialog>
+                </Modal>
             </div>
         );
     }

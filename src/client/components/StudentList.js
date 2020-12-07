@@ -6,13 +6,13 @@ import NonEditableStudentDirectory from './NonEditableStudentDirectory.js';
 import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
 
 const stubStudent = [
-    {firstName: "", lastName: "", username: "", email: ""},     
+    {firstName: "", lastName: "", username: "", email: ""},
 ];
 class StudentList extends React.Component {
     constructor() {
         super();
         this.state = {
-            userType: "instructor",
+            userType: "admin",
             // userType: "student",
             studentList: stubStudent,
         }
@@ -43,7 +43,7 @@ class StudentList extends React.Component {
                 <div style={{ textAlign: "center" }}>
                     <h1>Student List</h1>
                 </div>
-                {userType == "student" ? <NonEditableStudentDirectory studentList={studentList} /> : <EditableStudentDirectory studentList={studentList}/>}
+                {userType != "admin" ? <NonEditableStudentDirectory studentList={studentList} /> : <EditableStudentDirectory studentList={studentList}/>}
             </div>
         )
     }
