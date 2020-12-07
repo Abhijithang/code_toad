@@ -32,6 +32,11 @@ class App extends React.Component {
       this.setState({
         isLoading: false
       })
+
+      // Simple GET request using fetch
+
+
+
     }, 500)
 
 
@@ -46,13 +51,14 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return(
       <div style={this.style}>
         <React.Fragment>
           {this.state.isLoading ?
             <div><LoadingPage /></div> :
             <Router>
-              
+
               <Menu functionCallFromParent={this.menuSelected.bind(this)}/>
               <Main currentPage={this.state.selectedMenu}/>
               <Footer />

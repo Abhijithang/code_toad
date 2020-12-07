@@ -48,17 +48,12 @@ class Assignments extends React.Component {
         return(
             <div>
                 <div>
-                    Assignments
-                </div>
-
-                <div>
                   <Row>
                     {assignmentList}
                   </Row>
                     <input type="file" name="file" onChange={(e) => this.onChange(e)} />
                     <PdfGenerator></PdfGenerator>
                 </div>
-                
             </div>
         )
     }

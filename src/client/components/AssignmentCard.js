@@ -65,8 +65,8 @@ class AssignmentCard extends React.Component {
                 <Col className="cardContent">
                   <Card.Title >{this.props.assignment.name}</Card.Title>
                   <Card.Text className="cardContent" style={{height:"100%"}}>
-                    <span style={{height:"100%"}}>{this.props.assignment.deadline}</span>
-                    <span style={{height:"100%"}}>{this.props.assignment.marks}</span>
+                    <span style={{height:"100%"}}>Deadline: {this.props.assignment.deadline}</span>
+                    <span style={{height:"100%"}}>Total Marks: {this.props.assignment.marks}</span>
                   </Card.Text>
 
                     <Link className="course-button" to= {{
@@ -74,7 +74,7 @@ class AssignmentCard extends React.Component {
                       state: {questions: this.props.assignment.questions}
                     }}
                     >
-                      <Button style={buttonStyle}>Enter Course</Button>
+                      <Button style={buttonStyle}>Start</Button>
                     </Link>
 
 
