@@ -86,11 +86,9 @@ class ItemCard extends React.Component {
                   <Card.Text className="cardContent" style={{height:"100%"}}>
                     <span style={{height:"100%"}}>{this.props.data.description.repeat(1)}</span>
                   </Card.Text>
-
                     <Link className="course-button" to={`/course/${this.props.data.id}`} >
                       <Button style={buttonStyle}>Enter Course</Button>
                     </Link>
-
                 </Col>
               </Row>
             </Card.Body>

@@ -40,6 +40,7 @@ class App extends React.Component {
         isLoading: false
       })
     }, 500)
+
   }
 
   menuSelected=(menu_name)=>{
@@ -51,6 +52,9 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      userDirectory
+    } = this.state;
     console.log(this.state);
     return(
       <div style={this.style}>
@@ -60,7 +64,7 @@ class App extends React.Component {
             <Router>
 
               <Menu functionCallFromParent={this.menuSelected.bind(this)}/>
-              <Main currentPage={this.state.selectedMenu}/>
+              <Main currentPage={this.state.selectedMenu} userDirectory={userDirectory}/>
               <Footer />
             </Router>
           }
