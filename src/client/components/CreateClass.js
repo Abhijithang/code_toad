@@ -81,8 +81,7 @@ class CreateClass extends React.Component {
       <div>
         <Modal centered show={this.props.showCreateForm} onHide={()=> {this.props.toggleDisplay("showCreateForm"); this.props.toggleDisplay("updateOP");}} >
           <Modal.Header closeButton style={modalStyle}>
-            {this.props.updateOP? <Modal.Title>Create a Class</Modal.Title> : <Modal.Title>Update the Class</Modal.Title>}
-
+            <Modal.Title>Create a Class</Modal.Title>
           </Modal.Header>
           <Modal.Body style={modalStyle}>
           Please fill in the basic information for you class.

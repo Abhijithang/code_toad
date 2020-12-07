@@ -1,7 +1,6 @@
 import produce from 'immer'
 import * as actions from './actionLookup'
 
-
 const initState = {
   order:[],
   products:require('./client/product.json'),
@@ -16,6 +15,16 @@ const initState = {
       "name": "CSMS 420",
       "description": "Description, properties, and storage allocation functions of data structures including balanced binary trees, B-Trees, hash tables, skiplists, tries, KD-Trees and Quadtrees. Algorithms for manipulating structures. Applications from areas such as String Processing, Computer Graphics, Information Retrieval, Computer Networks, Computer Vision, and Operating Systems.",
       "price": "$10.00",
+    }
+  ],
+  catalog:[],
+  assignments:[
+    {
+      id: '1',
+      name: 'assignment1',
+      questions: [{q:'test',a:'test'},{q:'test',a:'test'}],
+      deadline: '12/31/2023',
+      marks: '100pts',
     }
   ]
 }

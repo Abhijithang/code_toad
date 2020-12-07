@@ -1,8 +1,9 @@
 {
-  "homepage": "http://AlanWu886.github.io/react_sample",
+  "homepage": "http://localhost:3000/",
   "name": "react_sample",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://cors-anywhere.myapi.herokuapp.com",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -11,6 +12,7 @@
     "bootstrap": "^4.5.0",
     "formik": "^2.1.5",
     "immer": "^7.0.5",
+    "jspdf": "^2.1.1",
     "lodash": "^4.17.19",
     "mapbox-gl": "^1.11.0",
     "react": "^16.13.1",
