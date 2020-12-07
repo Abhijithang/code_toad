@@ -49,9 +49,7 @@ class Main extends React.Component {
       return{
         count: xyz.count + 1
       }
-
     })
-
   }
 
   render() {
@@ -60,11 +58,9 @@ class Main extends React.Component {
     const currentPage = window.location.pathname.substring(1)
     console.log(currentPage);
     return(
-
       <>
         <div style={{paddingTop:'150px', width:'100%', flex: "1 0 auto"}}>
           <Container>
-
             <Route render={({location})=>(
               <TransitionGroup>
                 <CSSTransition key={location.key} timeout={300} classNames="fade">
