@@ -5,7 +5,7 @@ import NonEditableUserDirectory from './NonEditableUserDirectory.js';
 import {Card, CardDeck, Image, Row, Col, Dropdown, DropdownButton, Form, Button, Modal, Carousel} from 'react-bootstrap'
 
 const stubUser = [
-    {id: "", username: "", firstName: "", lastName: "", email: "", userType: ""},     
+    {id: "", username: "", firstName: "", lastName: "", email: "", userType: ""},
 ];
 class UserList extends React.Component {
     constructor() {

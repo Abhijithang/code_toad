@@ -34,7 +34,8 @@ class App extends React.Component {
     const courseDirectoryUrl = "https://codetoad613.herokuapp.com/v1/codetoad/course/details/all"; // get all course directory
     fetch(proxyUrl + courseDirectoryUrl)
         .then(response => response.json())
-        .then(data => this.setState({ courseDirectory: data }));
+        .then(data => this.setState({ courseDirectory: data }))
+        .then(console.log(this.state))
     setTimeout(()=>{
       this.setState({
         isLoading: false

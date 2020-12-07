@@ -10,8 +10,11 @@ class EditableUserDirectory extends Component {
     this.saveModalDetails = this.saveModalDetails.bind(this);
     this.state = {
       requiredItem: 0,
-      users: this.props.userList
+      users: this.props.userList,
+      showModal: false
     }
+
+    this.toggleDisplay = this.toggleDisplay.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,8 +23,21 @@ class EditableUserDirectory extends Component {
     });
   }
 
+  toggleDisplay(target){
+    console.log(target);
+    this.setState(
+      prevState=> {
+        console.log(prevState);
+        return {[target]:!prevState[target]}
+      }, ()=>{
+        console.log(this.state[target]);
+      }
+    )
+  }
+
   replaceModalItem(index) {
     console.log('render modal')
+
     this.setState({
       requiredItem: index
     });
@@ -40,13 +56,13 @@ class EditableUserDirectory extends Component {
     this.setState({ users: tempUsers });
   }
 
-  render() {   
+  render() {
     const {
       userList
     } = this.props;
 
     console.log('users', userList)
-    
+
     const users = this.state.users.map((item, index) => {
       return (
         <tr key={index}>
@@ -57,15 +73,15 @@ class EditableUserDirectory extends Component {
             <td>{item.email}</td>
             <td>{item.userType}</td>
             <td>
-                <ReactBootStrap.Button data-toggle="modal" data-target="#exampleModal"
-                    onClick={() => this.replaceModalItem(index)}>Edit
-                </ReactBootStrap.Button> {" "}
-                <ReactBootStrap.Button className="btn btn-danger" onClick={() => this.deleteItem(index)}>Delete</ReactBootStrap.Button>
+                <ReactBootStrap.Button
+                    onClick={() => this.toggleDisplay('showModal')}>Edit
+                </ReactBootStrap.Button>
+                <ReactBootStrap.Button variant='danger' onClick={() => this.deleteItem(index)}>Delete</ReactBootStrap.Button>
             </td>
         </tr>
       )
     });
-    
+
     const requiredItem = this.state.requiredItem;
     let modalData = this.state.users[requiredItem];
     return (
@@ -93,6 +109,8 @@ class EditableUserDirectory extends Component {
             email={modalData.email}
             userType={modalData.userType}
             saveModalDetails={this.saveModalDetails}
+            showModal={this.state.showModal}
+            toggleDisplay={this.toggleDisplay}
         />
       </div>
     );
