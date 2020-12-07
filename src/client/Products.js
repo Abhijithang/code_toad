@@ -28,13 +28,7 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-   const apiUrl = 'https://codetoad.herokuapp.com/v1/codetoad/course/details/all';
-   fetch(apiUrl)
-     .then((response) => response.json())
-     .then((data) => {
-       console.log('This is your data', data)
-     })
-     .catch(() => console.log("Can’t access " + apiUrl + " response. Blocked by browser?"))
+
  }
 
   toggleDisplay(target){

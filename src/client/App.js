@@ -32,11 +32,6 @@ class App extends React.Component {
       this.setState({
         isLoading: false
       })
-
-      // Simple GET request using fetch
-
-
-
     }, 500)
 
 
