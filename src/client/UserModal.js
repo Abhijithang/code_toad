@@ -9,7 +9,7 @@ class UserModal extends Component {
             id: '',
             firstName: '',
             lastName: '',
-            username: '',
+            userName: '',
             email: '',
             userType: '',
             showModal: false,
@@ -19,7 +19,7 @@ class UserModal extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             id: nextProps.id,
-            username: nextProps.username,
+            userName: nextProps.userName,
             firstName: nextProps.firstName,
             lastName: nextProps.lastName,
             email: nextProps.email,
@@ -40,7 +40,7 @@ class UserModal extends Component {
     }
 
     usernameHandler(e) {
-        this.setState({ username: e.target.value });
+        this.setState({ userName: e.target.value });
     }
 
     emailHandler(e) {
@@ -54,7 +54,7 @@ class UserModal extends Component {
     handleSave() {
         const item = this.state;
         this.props.saveModalDetails(item)
-        this.setState({showModal: false});
+        this.props.toggleDisplay("showModal")
         // TODO: Handle Save should also update the users via POST Request. Need to confirm endpoint with Abhi...
     }
 
@@ -80,7 +80,7 @@ class UserModal extends Component {
 
                     <Modal.Body style={modalStyle}>
                         <p><span className="modal-lable">Id: </span><input placeholder="Enter Id" value={this.state.id} onChange={(e) => this.idHandler(e)} /></p>
-                        <p><span className="modal-lable">Username: </span><input placeholder="Enter Username" value={this.state.username} onChange={(e) => this.usernameHandler(e)} /></p>
+                        <p><span className="modal-lable">Username: </span><input placeholder="Enter Username" value={this.state.userName} onChange={(e) => this.usernameHandler(e)} /></p>
                         <p><span className="modal-lable">First Name: </span><input placeholder="Enter First Name" value={this.state.firstName} onChange={(e) => this.firstNameHandler(e)} /></p>
                         <p><span className="modal-lable">Last Name: </span><input placeholder="Enter Last Name" value={this.state.lastName} onChange={(e) => this.lastNameHandler(e)} /></p>
                         <p><span className="modal-lable">Email: </span><input placeholder="Enter Email" value={this.state.email} onChange={(e) => this.emailHandler(e)} /></p>

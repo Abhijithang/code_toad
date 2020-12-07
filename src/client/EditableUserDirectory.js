@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import UserModal from './UserModal.js';
-import * as ReactBootStrap from "react-bootstrap"
+import CreateObj from './components/CreateObj'
+import * as api from '../apiLookup'
+import {Row, Col, Button, ButtonGroup, Table} from 'react-bootstrap'
+
+import FontAwesome from 'react-fontawesome'
 
 class EditableUserDirectory extends Component {
   constructor(props) {
@@ -15,6 +19,7 @@ class EditableUserDirectory extends Component {
     }
 
     this.toggleDisplay = this.toggleDisplay.bind(this)
+    this.crudOperation = this.crudOperation.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +42,7 @@ class EditableUserDirectory extends Component {
 
   replaceModalItem(index) {
     console.log('render modal')
-
+    this.toggleDisplay('showModal')
     this.setState({
       requiredItem: index
     });
@@ -47,7 +52,34 @@ class EditableUserDirectory extends Component {
     const requiredItem = this.state.requiredItem;
     let tempUsers = this.state.users;
     tempUsers[requiredItem] = item;
-    this.setState({ users: tempUsers });
+    // this.setState(
+    //   ()=> {
+    //     return {users: tempUsers}
+    //   }, ()=>{
+    //     this.crudOperation(item, 'POST')
+    //   }
+    // )
+    this.crudOperation(item, 'PUT')
+
+    // this.setState({ users: tempUsers })
+
+  }
+
+  crudOperation(obj, operation) {
+    console.log(obj,operation);
+    fetch(api.PROXY_URL+api.API_USER_UPDATE+obj.id, {
+      method: operation,
+      // Adding body or contents to send
+      body: JSON.stringify(obj),
+      // Adding headers to the request
+      headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Accept": "application/json",
+
+      }
+    })
+    .then(response => response.json())
+    .then(this.forceUpdate())
   }
 
   deleteItem(index) {
@@ -67,16 +99,16 @@ class EditableUserDirectory extends Component {
       return (
         <tr key={index}>
             <td>{item.id}</td>
-            <td>{item.username}</td>
+            <td>{item.userName}</td>
             <td>{item.firstName}</td>
             <td>{item.lastName}</td>
             <td>{item.email}</td>
             <td>{item.userType}</td>
             <td>
-                <ReactBootStrap.Button
-                    onClick={() => this.toggleDisplay('showModal')}>Edit
-                </ReactBootStrap.Button>
-                <ReactBootStrap.Button variant='danger' onClick={() => this.deleteItem(index)}>Delete</ReactBootStrap.Button>
+                <Button
+                    onClick={() => this.replaceModalItem(index)}>Edit
+                </Button>
+                <Button variant='danger' onClick={() => this.deleteItem(index)}>Delete</Button>
             </td>
         </tr>
       )
@@ -86,7 +118,7 @@ class EditableUserDirectory extends Component {
     let modalData = this.state.users[requiredItem];
     return (
       <div>
-        <ReactBootStrap.Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
                 <th>Id</th>
@@ -100,10 +132,10 @@ class EditableUserDirectory extends Component {
           <tbody>
             {users}
           </tbody>
-          </ReactBootStrap.Table>
+          </Table>
         <UserModal
             id={modalData.id}
-            username={modalData.username}
+            userName={modalData.userName}
             firstName={modalData.firstName}
             lastName={modalData.lastName}
             email={modalData.email}
