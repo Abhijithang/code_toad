@@ -21,6 +21,7 @@ class EditableStudentDirectory extends Component {
     let tempstudents = this.state.students;
     tempstudents.splice(index, 1);
     this.setState({ students: tempstudents });
+    // TODO: Needs to update the Course info by updating its student list with the removed students out of the picture
   }
 
   handleModal() {
