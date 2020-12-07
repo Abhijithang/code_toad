@@ -13,6 +13,7 @@ class UserModal extends Component {
             email: '',
             userType: '',
             showModal: false,
+
         }
     }
 

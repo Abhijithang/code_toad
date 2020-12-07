@@ -3,7 +3,7 @@ import UserModal from './UserModal.js';
 import CreateObj from './components/CreateObj'
 import * as api from '../apiLookup'
 import {Row, Col, Button, ButtonGroup, Table} from 'react-bootstrap'
-
+import Cart from './Cart'
 import FontAwesome from 'react-fontawesome'
 
 class EditableUserDirectory extends Component {
@@ -19,7 +19,8 @@ class EditableUserDirectory extends Component {
     }
 
     this.toggleDisplay = this.toggleDisplay.bind(this)
-    this.crudOperation = this.crudOperation.bind(this)
+    this.updateOperation = this.updateOperation.bind(this)
+    this.deleteOperation = this.deleteOperation.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +39,11 @@ class EditableUserDirectory extends Component {
         console.log(this.state[target]);
       }
     )
+  }
+
+  showCreateUserModal(){
+    this.toggleDisplay('showModal')
+
   }
 
   replaceModalItem(index) {
@@ -59,15 +65,15 @@ class EditableUserDirectory extends Component {
     //     this.crudOperation(item, 'POST')
     //   }
     // )
-    this.crudOperation(item, 'PUT')
+    this.updateOperation(item, 'PUT')
 
     // this.setState({ users: tempUsers })
 
   }
 
-  crudOperation(obj, operation) {
+  updateOperation(obj, operation) {
     console.log(obj,operation);
-    fetch(api.PROXY_URL+api.API_USER_UPDATE+obj.id, {
+    fetch(api.PROXY_URL+api.API_UPDATE_USER+obj.id, {
       method: operation,
       // Adding body or contents to send
       body: JSON.stringify(obj),
@@ -82,16 +88,35 @@ class EditableUserDirectory extends Component {
     .then(this.forceUpdate())
   }
 
+  deleteOperation(obj, operation) {
+    console.log(obj,operation);
+    fetch(api.PROXY_URL+api.API_DELETE_USER+obj.id, {
+      method: operation
+    })
+    .then(response => response.json())
+    .then(this.forceUpdate())
+  }
+
+
+
   deleteItem(index) {
-    let tempUsers = this.state.users;
-    tempUsers.splice(index, 1);
-    this.setState({ users: tempUsers });
+    console.log(this.state.users[index]);
+    this.deleteOperation(this.state.users[index], 'DELETE')
+    // let tempUsers = this.state.users;
+    // tempUsers.splice(index, 1);
+    // this.setState({ users: tempUsers });
   }
 
   render() {
     const {
       userList
     } = this.props;
+
+    const createClassIcon = <FontAwesome
+      className="super-crazy-colors"
+      name="plus"
+      style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+    />
 
     console.log('users', userList)
 
@@ -118,6 +143,12 @@ class EditableUserDirectory extends Component {
     let modalData = this.state.users[requiredItem];
     return (
       <div>
+
+        <span className="sticky-cart">
+          <Button onClick={()=>this.toggleDisplay("showModal")}>{createClassIcon}</Button>
+        </span>
+
+
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
