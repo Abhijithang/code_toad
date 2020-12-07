@@ -33,6 +33,11 @@ class App extends React.Component {
       this.setState({
         isLoading: false
       })
+
+      // Simple GET request using fetch
+
+
+
     }, 500)
     // Simple GET request using fetch
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
@@ -51,16 +56,14 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      userDirectory
-    } = this.state;
+    console.log(this.state);
     return(
       <div style={this.style}>
         <React.Fragment>
           {this.state.isLoading ?
             <div><LoadingPage /></div> :
             <Router>
-              
+
               <Menu functionCallFromParent={this.menuSelected.bind(this)}/>
               <Main currentPage={this.state.selectedMenu} userDirectory={userDirectory}/>
               <Footer />

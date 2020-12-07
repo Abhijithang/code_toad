@@ -14,6 +14,7 @@ import Course from './components/Course'
 import Announcements from './components/Announcements'
 import Lectures from './components/Lectures'
 import Assignments from './components/Assignments'
+import Assignment from './components/Assignment'
 import Grades from './components/Grades'
 import Syllabus from './components/Syllabus'
 import StudentList from './components/StudentList'
@@ -73,6 +74,7 @@ class Main extends React.Component {
                     <Route exact path="/course/:courseId/announcements" component={Announcements}></Route>
                     <Route exact path="/course/:courseId/lectures" component={Lectures}></Route>
                     <Route exact path="/course/:courseId/assignments" component={Assignments}></Route>
+                    <Route exact path="/course/:courseId/assignments/:assignmentId" component={Assignment}></Route>
                     <Route exact path="/course/:courseId/grades" component={Grades}></Route>
                     <Route exact path="/course/:courseId/syllabus" component={Syllabus}></Route>
                     <Route exact path="/course/:courseId/student_list" component={StudentList}></Route>
