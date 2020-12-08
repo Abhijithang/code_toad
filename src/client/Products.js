@@ -18,7 +18,8 @@ class Products extends React.Component {
         quantity: null,
         contact_name: null,
         contact_phone: null,
-        contact_email: null
+        contact_email: null,
+        courseDirectory:null
       },
     }
     this.initCatalog = this.initCatalog.bind(this)
@@ -28,7 +29,12 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-
+    // Simple GET request using fetch
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const courseDirectoryUrl = "https://codetoad613.herokuapp.com/v1/codetoad/course/details/all"; // get all course directory
+    fetch(proxyUrl + courseDirectoryUrl)
+        .then(response => response.json())
+        .then(data => this.setState({ courseDirectory: data }));
  }
 
   toggleDisplay(target){
@@ -97,7 +103,7 @@ class Products extends React.Component {
       name="plus"
       style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
     />
-    const courseCatalog = this.props.products.catalog.length != 0? this.initCatalog().map(item=>
+    const courseCatalog = this.state.courseDirectory? this.state.courseDirectory.map(item=>
       <Col key={item.id} style={{marginBottom:'30px'}} sm={12}><ItemCard key={item.id} item={item}/></Col>
     ) :
     <h1>No Course is provided at this momoent</h1>
