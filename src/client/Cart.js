@@ -166,7 +166,7 @@ class Cart extends React.Component {
               <Dropdown.Header>Order Details</Dropdown.Header>
               {orderItems}
               <Dropdown.Divider />
-              <Dropdown.Item disabled>Total: {this.props.order.length===0? <span>N/A</span> : <span style={{textDecoration:"line-through", color:"red", fontWeight:"bold", marginRight:"15px"}}>{this.calculatePrice()}</span>}</Dropdown.Item>
+              
               <Button disabled={this.props.order.length===0} onClick={()=>this.buyCourse(this.props.order)} style={{margin:'10px', float:'right' , alignSelf: 'center'}}>Check Out!</Button>
             </Dropdown.Menu>
           </Dropdown>

@@ -39,6 +39,8 @@ class ItemCard extends React.Component {
     this.toggleDisplay = this.toggleDisplay.bind(this)
     this.handleDescription = this.handleDescription.bind(this)
     this.updateCourse = this.updateCourse.bind(this)
+    this.updateCourseApi = this.updateCourseApi.bind(this)
+    this.deleteCourseApi = this.deleteCourseApi.bind(this)
   }
 
   componentDidMount(){
@@ -98,11 +100,49 @@ class ItemCard extends React.Component {
     this.setState(()=>{
       return{item:item}
     }, ()=>{
+
       this.toggleDisplay("editing")
       this.props.crudOperation(item, target, operation)
-      console.log(this.state.item);
+      // console.log(this.state.item);
     })
 
+  }
+
+  updateCourseApi(){
+    var item = {...this.state.item}
+    item.description = this.state.textAreaValue;
+    this.setState(()=>{
+      return{item:item}
+    }, ()=>{
+      console.log(this.state);
+      this.toggleDisplay("editing")
+      fetch("https://cors-anywhere.herokuapp.com/"+"https://codetoad613.herokuapp.com/v1/codetoad/course/update", {
+        method: "PUT",
+        body: JSON.stringify(this.state.item),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Accept": "application/json",
+
+        }
+      })
+      .then(response => response.json())
+      .then(this.forceUpdate())
+    })
+  }
+
+  deleteCourseApi(obj){
+    console.log(obj);
+    fetch("https://cors-anywhere.herokuapp.com/"+"https://codetoad613.herokuapp.com/v1/codetoad/course/delete/"+obj.id, {
+      method: "DELETE",
+      body: JSON.stringify(this.state.item),
+      headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Accept": "application/json",
+
+      }
+    })
+    .then(response => response.json())
+    .then(this.forceUpdate())
   }
 
   crudOperation(obj, target, operation) {
@@ -191,7 +231,9 @@ class ItemCard extends React.Component {
                     {this.state.editing?
                       <div>
                         <Form.Control as="textarea" rows={3} value={this.state.textAreaValue}   onChange={this.handleDescription}/>
-                        <Button size='sm' variant='warning' style={{float:'right'}} onClick={()=> this.updateCourse("catalog","update")}>Update</Button>
+                        <Button size='sm' variant='warning' style={{float:'right'}} onClick={()=> this.updateCourseApi()}>Update</Button>
+                        <Button size='sm' style={{float:'right'}} onClick={()=>this.toggleDisplay("editing")}>Back</Button>
+
                       </div> :
                       <span style={{marginBottom:"10px"}}>{this.state.item.description}</span>
                     }
@@ -219,7 +261,7 @@ class ItemCard extends React.Component {
                             <div>
 
                               <Button size='sm' variant='warning' onClick={()=>this.toggleDisplay("editing")}>Edit</Button>
-                              <Button size='sm' variant='danger' onClick={()=> this.crudOperation(this.state.item, "catalog", "delete")} style={{marginLeft:"5px"}}>Delete</Button>
+                              <Button size='sm' variant='danger' onClick={()=> this.deleteCourseApi(this.state.item)} style={{marginLeft:"5px"}}>Delete</Button>
                             </div> :
                             <Button size="sm" onClick={ ()=> this.addToCart(this.state.item.id)}  style={{marginLeft:"5px"}}>Add to Cart</Button>
                           }
