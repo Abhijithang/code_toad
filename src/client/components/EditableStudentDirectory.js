@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as ReactBootStrap from "react-bootstrap"
+import UserModal from '../UserModal.js';
+
 
 class EditableStudentDirectory extends Component {
   constructor(props) {
@@ -7,8 +9,22 @@ class EditableStudentDirectory extends Component {
     this.state = {
       requiredItem: 0,
       students: this.props.studentList,
-      show: false
+      showModal: false
     }
+
+    this.toggleDisplay = this.toggleDisplay.bind(this)
+  }
+
+  toggleDisplay(target){
+    console.log(target);
+    this.setState(
+      prevState=> {
+        console.log(prevState);
+        return {[target]:!prevState[target]}
+      }, ()=>{
+        console.log(this.state[target]);
+      }
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,7 +44,7 @@ class EditableStudentDirectory extends Component {
     this.setState({show: !this.state.show});
   }
 
-  render() {   
+  render() {
     const {
       studentList
     } = this.props;
@@ -39,7 +55,7 @@ class EditableStudentDirectory extends Component {
       backgroundColor:"#3f3e4f",
       borderColor:"#3f3e4f"
     }
-    
+
     const students = this.state.students.map((item, index) => {
       return (
         <tr key={index}>
@@ -48,6 +64,7 @@ class EditableStudentDirectory extends Component {
           <td>{item.username}</td>
           <td>{item.email}</td>
           <td>
+            <ReactBootStrap.Button className="btn btn-warning" onClick={() => this.toggleDisplay('showModal')}>Edit</ReactBootStrap.Button>
             <ReactBootStrap.Button className="btn btn-danger" onClick={() => this.deleteItem(index)}>Delete</ReactBootStrap.Button>
           </td>
         </tr>
@@ -69,6 +86,7 @@ class EditableStudentDirectory extends Component {
             {students}
           </tbody>
           </ReactBootStrap.Table>
+          <UserModal showModal={this.state.showModal} toggleDisplay={this.toggleDisplay}/>
           {/* I decided that giving privilege to Instructor to add a student to a course is not necessary because the student can just enroll to the class themselves */}
           {/* <ReactBootStrap.Button onClick={() => {this.handleModal()}}>
             + Add Student
